@@ -3,6 +3,7 @@
 # Bibliotheken laden
 from machine import UART
 import time
+import json
 
 # Initialisierung: UART
 # UART 0, TX=GPIO0 (Pin 1), RX=GPIO1 (Pin 2)
@@ -12,16 +13,19 @@ uart = UART(1, 57600)
 uart.init(57600, bits=8, parity=None, stop=1, timeout=300)
 
 #print(uart)
-
+count = {}
+json_data = {}
 print('Warten auf Daten der Gegenstelle')
 
 def myconv(s):
+  # Workaround for Micropython UTF-8 limitation
+  # Convert single LATIN-1 chars to UTF-8
   o = b""
   for b in s:  
     if b == 0xFC:
-        o += bytes(chr(228), "utf-8")
-    elif b == 0xE4:
         o += bytes(chr(252), "utf-8")
+    elif b == 0xE4:
+        o += bytes(chr(228), "utf-8")
     elif b == 0xB0:
         o += bytes(chr(176), "utf-8")
     else:
@@ -53,7 +57,23 @@ def read_line():
 
 
 while True:
+
   data = read_line()
-  print(data)
-  #print(read_line())  # Join them together.      <
+  #print(data)
+
+  if 'id' in data.keys():
+    if data['id'] not in count:
+      count[data['id']] = 0
+    count[data['id']] += 1
+    json_data[data['id']] = {
+        'sensor': data['sensor'],
+        'unit': data['unit'],
+        'factor': data['factor'],
+        'count': count[data['id']]
+    }
+    if count[data['id']] == 3:
+      break
+
+print(json.dumps(json_data, separators=None))
+
     
