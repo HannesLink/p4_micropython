@@ -4,16 +4,16 @@
 from machine import UART
 import time
 import json
+import _thread
 
 # Initialisierung: UART
 # UART 0, TX=GPIO0 (Pin 1), RX=GPIO1 (Pin 2)
 # UART 1, TX=GPIO4 (Pin 6), RX=GPIO5 (Pin 7)
 uart = UART(1, 57600)
 #uart.init(57600, bits=8, parity=None, stop=1, tx=10, rx=9)
-uart.init(57600, bits=8, parity=None, stop=1, timeout=300)
+uart.init(57600, bits=8, parity=None, stop=1, timeout=10)
 
 #print(uart)
-count = {}
 json_data = {}
 print('Warten auf Daten der Gegenstelle')
 
@@ -41,6 +41,7 @@ def read_line():
         time.sleep(0.0001)
     returnstring = myconv(uart.readline())
     raw_list = returnstring.split(b';')
+    #print(returnstring)
     #print(len(raw_list))
     if len(raw_list) == 6:
       try:
@@ -56,24 +57,32 @@ def read_line():
     return (data)
 
 
-while True:
+def get_data():
+  count = {}
+  while True:
+    try:
+      data = read_line()
+    except Exception as err:
+      print(err)
+      print("timeout")
 
-  data = read_line()
-  #print(data)
+    #print(data)
 
-  if 'id' in data.keys():
-    if data['id'] not in count:
-      count[data['id']] = 0
-    count[data['id']] += 1
-    json_data[data['id']] = {
-        'sensor': data['sensor'],
-        'unit': data['unit'],
-        'factor': data['factor'],
-        'count': count[data['id']]
-    }
-    if count[data['id']] == 3:
-      break
+    if 'id' in data.keys():
+      if data['id'] not in count:
+        count[data['id']] = 0
+      count[data['id']] += 1
+      json_data[data['id']] = {
+          'sensor': data['sensor'],
+          'unit': data['unit'],
+          'factor': data['factor']
+      }
+      if count[data['id']] == 3:
+        break
 
+
+
+_thread.start_new_thread(get_data, ())
+
+time.sleep(10)
 print(json.dumps(json_data, separators=None))
-
-    
