@@ -29,10 +29,10 @@ def create_temperatures():
         ]
     for key in json_data:
         sensor = json_data[key]['sensor']
-        #value = json_data[key]['value']
+        total = json_data[key]['total']
         factor = float(json_data[key]['factor'])
-        if key in ['2']:
-            metric = "p4_temperatures_celsius{sensor='%s'} %.2f" % (sensor, factor)
+        if key in ['2', '3', '11', '17', '18', '20', '21', '23', '24', '25', '28']:
+            metric = "p4_temperatures_celsius{sensor='%s'} %.2f" % (sensor, total)
             output.append(metric)
         #output.append(key)
     return '\n'.join(output)
