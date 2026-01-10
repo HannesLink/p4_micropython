@@ -44,12 +44,7 @@ def read_line():
     #print(returnstring)
     #print(len(raw_list))
     if len(raw_list) == 6:
-      try:
-        data['sensor'] = raw_list[0][1:].decode()
-      except UnicodeError as err:
-        print('Fehler bei folgendem String:')
-        print(raw_list[0][1:])
-        print(err)
+      data['sensor'] = raw_list[0].decode()
       data['value'] = raw_list[1].decode()
       data['id'] = raw_list[2].decode()
       data['factor'] = raw_list[3].decode()
@@ -72,10 +67,19 @@ def get_data():
       if data['id'] not in count:
         count[data['id']] = 0
       count[data['id']] += 1
+      factor = int(data['factor'])
+      try:
+          value = float(data['value'])
+          total = value / factor
+      except ValueError:
+          value = str(data['value'])
+          total = value
       json_data[data['id']] = {
-          'sensor': data['sensor'],
+          'sensor': data['sensor'].strip(),
           'unit': data['unit'],
-          'factor': data['factor']
+          'factor': factor,
+          'value': value,
+          'total': total
       }
       if count[data['id']] == 3:
         break
@@ -85,7 +89,11 @@ def get_json():
         d = json.load(f)
     return d
 
+get_data()
+
 # _thread.start_new_thread(get_json, ())
 
 # time.sleep(5)
-# print(json.dumps(json_data, separators=None))
+for key in json_data:
+    print(json_data[key])
+print(json.dumps(json_data, separators=None))
