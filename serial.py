@@ -80,9 +80,12 @@ def get_data():
       if count[data['id']] == 3:
         break
 
+def get_json():
+    with open('sample_data.json') as f:
+        d = json.load(f)
+    return d
 
+# _thread.start_new_thread(get_json, ())
 
-_thread.start_new_thread(get_data, ())
-
-time.sleep(10)
-print(json.dumps(json_data, separators=None))
+# time.sleep(5)
+# print(json.dumps(json_data, separators=None))
