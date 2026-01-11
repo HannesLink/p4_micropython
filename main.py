@@ -13,9 +13,13 @@ def create_temperatures(d):
         ]
     for key in d:
         sensor = json_data[key]['sensor']
+        factor = json_data[key]['factor']
         total = json_data[key]['total']
         if key in ['2', '3', '11', '17', '18', '20', '21', '23', '24', '25', '28']:
-            metric = "p4_temperatures_celsius{sensor='%s'} %.2f" % (sensor, total)
+            if factor == 1:
+                metric = "p4_temperatures_celsius{sensor='%s'} %.1d" % (sensor, total)
+            else:
+                metric = "p4_temperatures_celsius{sensor='%s'} %.1f" % (sensor, total)
             output.append(metric)
     return '\n'.join(output)
 
@@ -39,9 +43,13 @@ def create_values(d):
         ]
     for key in d:
         sensor = json_data[key]['sensor']
+        factor = json_data[key]['factor']
         total = json_data[key]['total']
         if key in ['4', '5', '6', '7', '8', '9', '12', '13', '14', '22', '30']:
-            metric = "p4_values{sensor='%s'} %.2f" % (sensor, total)
+            if factor == 1:
+                metric = "p4_values{sensor='%s'} %.1d" % (sensor, total)
+            else:
+                metric = "p4_values{sensor='%s'} %.1f" % (sensor, total)
             output.append(metric)
     return '\n'.join(output)
 
