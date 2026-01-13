@@ -1,9 +1,13 @@
 from microdot import Microdot
 import _thread
+import json
+import time
 from serial import get_json
 
 app = Microdot()
 json_data = {}
+data_lock = _thread.allocate_lock()
+
 
 def create_temperatures(d):
     output = [
@@ -71,14 +75,23 @@ def create_info(d):
     return '\n'.join(output)
 
 def create_metrics():
-    global json_data
-    json_data = get_json()
+    temp_data = {}
     output = []
-    output.append(create_temperatures(json_data))
-    output.append(create_states(json_data))
-    output.append(create_values(json_data))
-    output.append(create_info(json_data))
+    with data_lock:
+        temp_data = json_data
+    output.append(create_temperatures(temp_data))
+    output.append(create_states(temp_data))
+    output.append(create_values(temp_data))
+    output.append(create_info(temp_data))
     return '\n'.join(output)
+
+def data_thread():
+    global json_data
+    while True:
+        with data_lock:
+            json_data = get_json()
+        print("Sensor daten aktualisiert:", json.dumps(json_data, separators=None))
+        time.sleep(30)  # Messintervall (Sekunden)
 
 @app.route('/metrics')
 async def metrics(request):
@@ -90,5 +103,6 @@ async def shutdown(request):
     request.app.shutdown()
     return 'The server is shutting down...'
 
-
+# Threads starten
+_thread.start_new_thread(data_thread, ())
 app.run(debug=True, port=9100)
