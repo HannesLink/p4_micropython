@@ -29,11 +29,22 @@ def myconv(s):
   return o
 
 def read_line():
+    count = 0
     returnstring = None
     raw_list = []
     data = {}
     while not uart.any():
-        time.sleep(0.0001)
+        time.sleep(0.001)
+        count +=1
+        #print("Stuck %d" % count)
+        if count > 1000:
+            return {
+                'id': 'nodata',
+                'factor': 1,
+                'value': 1,
+                'sensor': "no data found",
+                'unit': "°"
+                }
     returnstring = myconv(uart.readline())
     raw_list = returnstring.split(b';')
     #print(returnstring)
@@ -55,7 +66,6 @@ def get_data():
       data = read_line()
     except Exception as err:
       print(err)
-      print("timeout")
 
     #print(data)
 
@@ -82,14 +92,17 @@ def get_data():
   #for key in json_data:
   #    print(json_data[key])
   # print(json.dumps(json_data, separators=None))
-  return json_data
+  if "nodata" in json_data.keys():
+      return {}
+  else:
+      return json_data
 
 def get_json():
     with open('sample_data.json') as f:
         d = json.load(f)
     return d
 
-# get_data()
+print(get_data())
 
 # _thread.start_new_thread(get_json, ())
 
