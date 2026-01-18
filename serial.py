@@ -89,22 +89,18 @@ def get_data():
       }
       if count[data['id']] == 3:
           break
-  #for key in json_data:
-  #    print(json_data[key])
-  # print(json.dumps(json_data, separators=None))
+
+  #  Check for empty data set
   if "nodata" in json_data.keys():
       return {}
   else:
       return json_data
 
 def get_json():
+    # Output sample data
     with open('sample_data.json') as f:
         d = json.load(f)
     return d
 
-print(get_data())
-
-# _thread.start_new_thread(get_json, ())
-
-# time.sleep(5)
-
+# For single use
+print(json.dumps(get_data(), separators=None))
