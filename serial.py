@@ -7,14 +7,9 @@ import json
 import _thread
 
 # Initialisierung: UART
-# UART 0, TX=GPIO0 (Pin 1), RX=GPIO1 (Pin 2)
-# UART 1, TX=GPIO4 (Pin 6), RX=GPIO5 (Pin 7)
 uart = UART(1, 57600)
-#uart.init(57600, bits=8, parity=None, stop=1, tx=10, rx=9)
 uart.init(57600, bits=8, parity=None, stop=1, timeout=10)
 
-#print(uart)
-json_data = {}
 print('Warten auf Daten der Gegenstelle')
 
 def myconv(s):
@@ -54,6 +49,7 @@ def read_line():
 
 def get_data():
   count = {}
+  json_data = {}
   while True:
     try:
       data = read_line()
@@ -82,18 +78,20 @@ def get_data():
           'total': total
       }
       if count[data['id']] == 3:
-        break
+          break
+  #for key in json_data:
+  #    print(json_data[key])
+  # print(json.dumps(json_data, separators=None))
+  return json_data
 
 def get_json():
     with open('sample_data.json') as f:
         d = json.load(f)
     return d
 
-get_data()
+# get_data()
 
 # _thread.start_new_thread(get_json, ())
 
 # time.sleep(5)
-for key in json_data:
-    print(json_data[key])
-print(json.dumps(json_data, separators=None))
+

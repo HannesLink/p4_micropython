@@ -2,7 +2,7 @@ from microdot import Microdot
 import _thread
 import json
 import time
-from serial import get_json
+from serial import get_data
 
 app = Microdot()
 json_data = {}
@@ -89,7 +89,7 @@ def data_thread():
     global json_data
     while True:
         with data_lock:
-            json_data = get_json()
+            json_data = get_data()
         print("Sensor daten aktualisiert:", json.dumps(json_data, separators=None))
         time.sleep(30)  # Messintervall (Sekunden)
 
