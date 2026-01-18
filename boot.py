@@ -14,8 +14,8 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
-ssid = 'CHANGE'
-password = 'CHANGE'
+ssid = 'Link IoT'
+password = 'Changeme2'
 
 station = network.WLAN(network.STA_IF)
 
