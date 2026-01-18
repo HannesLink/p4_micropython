@@ -39,11 +39,11 @@ def read_line():
         #print("Stuck %d" % count)
         if count > 1000:
             return {
-                'id': 'nodata',
+                'id': '99',
                 'factor': 1,
-                'value': 1,
-                'sensor': "no data found",
-                'unit': "°"
+                'value': "no serial data",
+                'sensor': 'Fehler',
+                'unit': " "
                 }
     returnstring = myconv(uart.readline())
     raw_list = returnstring.split(b';')
@@ -89,12 +89,7 @@ def get_data():
       }
       if count[data['id']] == 3:
           break
-
-  #  Check for empty data set
-  if "nodata" in json_data.keys():
-      return {}
-  else:
-      return json_data
+  return json_data
 
 def get_json():
     # Output sample data
