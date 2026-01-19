@@ -75,7 +75,8 @@ def get_data():
         count[data['id']] = 0
       count[data['id']] += 1
       factor = int(data['factor'])
-      sensortext = data['sensor'].strip()
+      sensortext_raw = data['sensor'].strip()
+      sensortext_clean = re.sub(r'[^a-zA-Z0-9äüöÄÜÖß ]','', sensortext_raw)
       try:
           value = float(data['value'])
           total = round(value / factor,1)
@@ -83,7 +84,7 @@ def get_data():
           value = str(data['value'])
           total = value
       json_data[data['id']] = {
-          'sensor': re.sub(r'[^a-zA-Z0-9 ]','', sensortext),
+          'sensor': sensortext_clean.lstrip(),
           'unit': data['unit'],
           'factor': factor,
           'value': value,
