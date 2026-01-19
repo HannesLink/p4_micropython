@@ -4,6 +4,7 @@
 from machine import UART
 import time
 import json
+import re
 import _thread
 
 # Initialisierung: UART
@@ -74,14 +75,15 @@ def get_data():
         count[data['id']] = 0
       count[data['id']] += 1
       factor = int(data['factor'])
+      sensortext = data['sensor'].strip()
       try:
           value = float(data['value'])
-          total = value / factor
+          total = round(value / factor,1)
       except ValueError:
           value = str(data['value'])
           total = value
       json_data[data['id']] = {
-          'sensor': data['sensor'].strip(),
+          'sensor': re.sub(r'[^a-zA-Z0-9 ]','', sensortext),
           'unit': data['unit'],
           'factor': factor,
           'value': value,
@@ -98,4 +100,4 @@ def get_json():
     return d
 
 # For single use
-print(json.dumps(get_data(), separators=None))
+# print(json.dumps(get_data(), separators=None))
