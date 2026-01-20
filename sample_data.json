@@ -1,0 +1,212 @@
+{
+  "99": {
+    "factor": 1,
+    "value": "Kein Fehler ",
+    "sensor": "Fehler",
+    "total": "Kein Fehler ",
+    "unit": " "
+  },
+  "5": {
+    "factor": 1,
+    "value": 0,
+    "sensor": "Primärluft",
+    "total": 0,
+    "unit": "%"
+  },
+  "4": {
+    "factor": 1,
+    "value": 99,
+    "sensor": "Kesselstrg",
+    "total": 99,
+    "unit": "%"
+  },
+  "7": {
+    "factor": 1,
+    "value": 100,
+    "sensor": "O2 Regler",
+    "total": 100,
+    "unit": "%"
+  },
+  "27": {
+    "factor": 1,
+    "value": 1,
+    "sensor": "HK Pumpe 2",
+    "total": 1,
+    "unit": " "
+  },
+  "30": {
+    "factor": 1,
+    "value": 27946,
+    "sensor": "Betriebsstunden",
+    "total": 27946,
+    "unit": "h"
+  },
+  "25": {
+    "factor": 2,
+    "value": 94,
+    "sensor": "Vorlauf 2",
+    "total": 47,
+    "unit": "°C"
+  },
+  "24": {
+    "factor": 2,
+    "value": 74,
+    "sensor": "Vorlauf 1",
+    "total": 37,
+    "unit": "°C"
+  },
+  "2": {
+    "factor": 2,
+    "value": 116,
+    "sensor": "Kesseltemp.",
+    "total": 58,
+    "unit": "°C"
+  },
+  "22": {
+    "factor": 1,
+    "value": 35,
+    "sensor": "Pufferpumpe",
+    "total": 35,
+    "unit": "%"
+  },
+  "15": {
+    "factor": 100,
+    "value": 75,
+    "sensor": "Ansauggeschw.",
+    "total": 0.75,
+    "unit": "m/s"
+  },
+  "16": {
+    "factor": 1000,
+    "value": 1690,
+    "sensor": "Strom Austrags",
+    "total": 1.69,
+    "unit": "A"
+  },
+  "17": {
+    "factor": 2,
+    "value": 117,
+    "sensor": "Fühler 1",
+    "total": 58.5,
+    "unit": "°C"
+  },
+  "9": {
+    "factor": 1,
+    "value": 65,
+    "sensor": "Saugzug Soll",
+    "total": 65,
+    "unit": "%"
+  },
+  "8": {
+    "factor": 1,
+    "value": 0,
+    "sensor": "Sekundärluft",
+    "total": 0,
+    "unit": "%"
+  },
+  "10": {
+    "factor": 1,
+    "value": 1932,
+    "sensor": "Saugzug Ist",
+    "total": 1932,
+    "unit": "U"
+  },
+  "11": {
+    "factor": 1,
+    "value": 165,
+    "sensor": "Abgastemp S",
+    "total": 165,
+    "unit": "°C"
+  },
+  "12": {
+    "factor": 1,
+    "value": 64,
+    "sensor": "Einschub Ist",
+    "total": 64,
+    "unit": "%"
+  },
+  "29": {
+    "factor": 2,
+    "value": 0,
+    "sensor": "Kollektortemp",
+    "total": 0,
+    "unit": "°C"
+  },
+  "28": {
+    "factor": 2,
+    "value": -1,
+    "sensor": "Aussentemp",
+    "total": -0.5,
+    "unit": "°C"
+  },
+  "13": {
+    "factor": 1,
+    "value": 64,
+    "sensor": "O2 Regler Pell",
+    "total": 64,
+    "unit": "%"
+  },
+  "21": {
+    "factor": 2,
+    "value": 111,
+    "sensor": "Pufferunten",
+    "total": 55.5,
+    "unit": "°C"
+  },
+  "20": {
+    "factor": 2,
+    "value": 113,
+    "sensor": "Pufferoben",
+    "total": 56.5,
+    "unit": "°C"
+  },
+  "18": {
+    "factor": 2,
+    "value": 150,
+    "sensor": "Kesselsoll",
+    "total": 75,
+    "unit": "°C"
+  },
+  "23": {
+    "factor": 2,
+    "value": 104,
+    "sensor": "Boiler 1",
+    "total": 52,
+    "unit": "°C"
+  },
+  "14": {
+    "factor": 207,
+    "value": 15639,
+    "sensor": "Füllstand:",
+    "total": 75.55073,
+    "unit": "%"
+  },
+  "6": {
+    "factor": 10,
+    "value": 87,
+    "sensor": "Rest O2 ist",
+    "total": 8.7,
+    "unit": "%"
+  },
+  "1": {
+    "factor": 1,
+    "value": 3,
+    "sensor": "$ Heizen",
+    "total": 3,
+    "unit": "zst"
+  },
+  "26": {
+    "factor": 1,
+    "value": 1,
+    "sensor": "HK Pumpe 1",
+    "total": 1,
+    "unit": " "
+  },
+  "3": {
+    "factor": 1,
+    "value": 152,
+    "sensor": "Abgastemp.",
+    "total": 152,
+    "unit": "°C"
+  }
+}
